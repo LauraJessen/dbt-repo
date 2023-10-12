@@ -9,6 +9,6 @@ WITH temperature_daily AS (
         ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'totalprecip')::VARCHAR)::FLOAT AS total_prec,
         (extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'condition'-> 'text')::VARCHAR  AS cond
 
-    FROM {{source("staging", "raw_temp")}})
+    FROM {{source("staging", "raw_weather")}})
 SELECT * 
 FROM temperature_daily
