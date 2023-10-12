@@ -7,7 +7,7 @@ WITH temperature_daily AS (
         (extracted_data -> 'location' -> 'country')::VARCHAR  AS country,
         ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'maxwind_kph')::VARCHAR)::FLOAT AS max_wind,
         ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'totalprecip')::VARCHAR)::FLOAT AS total_prec,
-        (extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'condition'-> 'text')::VARCHAR  AS cond,
+        (extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'condition'-> 'text')::VARCHAR  AS cond
 
     FROM {{source("staging", "raw_temp")}})
 SELECT * 
