@@ -3,12 +3,15 @@ WITH temperature_daily AS (
         ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'maxtemp_c')::VARCHAR)::FLOAT AS maxtemp,
         ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'mintemp_c')::VARCHAR)::FLOAT AS mintemp,
         ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'avgtemp_c')::VARCHAR)::FLOAT AS avgtemp,
+        ((extracted_data -> 'location' -> 'lat')::VARCHAR)::NUMERIC  AS lat, 
+        ((extracted_data -> 'location' -> 'lon')::VARCHAR)::NUMERIC  AS lon,
         (extracted_data -> 'location' -> 'name')::VARCHAR  AS city,
         (extracted_data -> 'location' -> 'country')::VARCHAR  AS country,
         ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'maxwind_kph')::VARCHAR)::FLOAT AS max_wind,
         ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'totalprecip')::VARCHAR)::FLOAT AS total_prec,
-        (extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'condition'-> 'text')::VARCHAR  AS cond
+        (extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'condition'-> 'text')::VARCHAR  AS cond,
+        ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'feelslike_c')::VARCHAR)::FLOAT AS feelslike
 
-    FROM {{source("staging", "raw_weather")}})
+    FROM {{source("staging", "raw_weather_all")}})
 SELECT * 
 FROM temperature_daily
