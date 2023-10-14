@@ -8,4 +8,4 @@ weekly_avg_temp AS (
      FROM prep_temp_data
      group by(week_num)
 )
-SELECT * FROM weekly_avg_temp;
+SELECT * FROM weekly_avg_temp
