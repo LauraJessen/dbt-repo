@@ -4,7 +4,7 @@ WITH prep_temp_data AS (
 ),
 weekly_avg_temp AS (
      SELECT date_part('week', date) as week_num,
-     avg(avgtemp_c) as avg_temp
+     avg(avgtemp) as avg_temp
      FROM prep_temp_data
      group by(week_num)
 )
