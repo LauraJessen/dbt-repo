@@ -10,7 +10,6 @@ WITH temperature_daily AS (
         ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'maxwind_kph')::VARCHAR)::FLOAT AS max_wind,
         ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'totalprecip_mm')::VARCHAR)::FLOAT AS total_prec,
         (extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'condition'-> 'text')::VARCHAR  AS cond,
-        ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'hour' -> 'feelslike_c')::VARCHAR)::FLOAT AS feelslike
 
 --old    FROM {{source("staging", "raw_weather_all")}})
 --old SELECT * 
@@ -27,6 +26,6 @@ SELECT
     lon,
     max_wind,
     total_prec,
-    cond,
+    REPLACE (cond, '"', '') as cond,
     feelslike
 FROM temperature_daily
