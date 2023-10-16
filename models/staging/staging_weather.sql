@@ -29,4 +29,4 @@ SELECT
     total_prec,
     cond,
     feelslike
-FROM temperature_daily;
+FROM temperature_daily
