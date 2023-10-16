@@ -8,10 +8,25 @@ WITH temperature_daily AS (
         (extracted_data -> 'location' -> 'name')::VARCHAR  AS city,
         (extracted_data -> 'location' -> 'country')::VARCHAR  AS country,
         ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'maxwind_kph')::VARCHAR)::FLOAT AS max_wind,
-        ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'totalprecip')::VARCHAR)::FLOAT AS total_prec,
-        (extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'condition'-> 'text')::VARCHAR  AS cond,
-        ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'feelslike_c')::VARCHAR)::FLOAT AS feelslike
+        ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'totalprecip_mm')::VARCHAR)::FLOAT AS total_prec,
+        (extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'day' -> 'condition'-> 'text')::VARCHAR  AS cond,
+        ((extracted_data -> 'forecast' -> 'forecastday' -> 0 -> 'hour' -> 'feelslike_c')::VARCHAR)::FLOAT AS feelslike
 
+--old    FROM {{source("staging", "raw_weather_all")}})
+--old SELECT * 
+--old FROM temperature_daily
     FROM {{source("staging", "raw_weather_all")}})
-SELECT * 
-FROM temperature_daily
+SELECT
+    REPLACE (city, '"', '') as city,
+    REPLACE (country, '"', '') as country,
+    date,
+    maxtemp,
+    mintemp,
+    avgtemp,
+    lat,
+    lon,
+    max_wind,
+    total_prec,
+    cond,
+    feelslike
+FROM temperature_daily;
