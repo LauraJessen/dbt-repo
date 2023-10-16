@@ -14,7 +14,7 @@ WITH temperature_daily AS (
 --old    FROM {{source("staging", "raw_weather_all")}})
 --old SELECT * 
 --old FROM temperature_daily
-    FROM {{source("staging", "raw_weather_all")}}),
+    FROM {{source("staging", "raw_weather_all")}})
 SELECT
     REPLACE (city, '"', '') as city,
     REPLACE (country, '"', '') as country,
