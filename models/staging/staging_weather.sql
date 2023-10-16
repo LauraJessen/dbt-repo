@@ -26,5 +26,5 @@ SELECT
     lon,
     max_wind,
     total_prec,
-    REPLACE (cond, '"', '') as cond,
+    REPLACE (cond, '"', '') as cond
 FROM temperature_daily
