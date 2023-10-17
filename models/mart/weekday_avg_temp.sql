@@ -6,7 +6,9 @@ weekly_avg_temp AS (
      SELECT week_num,
      avg(avgtemp) as avg_temp,
      city,
-     country
+     country,
+     lat,
+     lon
      FROM prep_temp_data
      --adding city here
      group by(week_num, city, country)
