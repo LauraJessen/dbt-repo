@@ -3,7 +3,7 @@ WITH prep_temp_data AS (
     FROM {{ref('prep_temp')}}
 ),
 weekly_avg_temp AS (
-     SELECT date_part('week', date) as week_num,
+     SELECT week_num,
      avg(avgtemp) as avg_temp,
      city,
      country
